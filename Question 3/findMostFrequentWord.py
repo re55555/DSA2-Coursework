@@ -41,7 +41,20 @@ def findMostFrequentWord(inputList1: list[str], inputList2: list[str]) -> str:
         reverse=True
     )
 
-    return ranked[0]
+    #Find the highest number of times a word appears
+    highest_frequency = counts[ranked[0]]
+
+    #Remove all the highest ranking word(s) to find the 2nd highest
+    second_ranked = []
+    for word in ranked:
+        if counts[word] < highest_frequency:
+            second_ranked.append(word)
+
+    #If there is no 2nd most frequent word, return empty
+    if len(second_ranked) == 0:
+        return ""
+
+    return second_ranked[0]
 
 
 

@@ -206,6 +206,17 @@ def nQueensBacktrackingVersion2(size, startingPosition):
 
     return success, positions
 
+# Test Las Vegas success rate
+def TestLasVegasSuccessRate(size, runs):
+    successes = 0
+
+    for i in range(runs):
+        success, _ = nQueensLasVegas(size)
+        if success:
+            successes += 1
+
+    successrate = successes / runs
+    print("Success rate: ", successrate)
 
 # Main program 
 def main():
@@ -231,6 +242,7 @@ def main():
         print("l  = Las Vegas")
         print("b  = Backtracking")
         print("b2 = Backtracking with starting queen")
+        print("lt = Las Vegas success rate test")
         print("q  = Quit")
 
         choice = input("Your choice: ").strip().lower()
@@ -245,6 +257,20 @@ def main():
         elif choice == "b":
             success, positions = nQueensBacktracking(size)
             visualize_end_state(size, success, positions)
+            
+        elif choice == "lt":
+            runs_text = input("How many times should it run (e.g. 1000 or 10000)?: ").strip().lower()
+            if runs_text == "q":
+                print("Exiting program.")
+                return
+
+            try:
+                runs = int(runs_text)
+            except:
+                print("Please enter a number.\n")
+                continue
+
+            TestLasVegasSuccessRate(size, runs)
 
         elif choice == "b2":
             r = input("Enter starting queen row: ").strip()
